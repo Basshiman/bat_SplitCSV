@@ -27,6 +27,12 @@ set name_before=yŒ‹‰Êz
 set name_after=_2017209
 set extension=.csv
 set zeroPadding=2
+set bat_dir=%~dp0
+set output_dir=output\
+
+if not exist !bat_dir!!output_dir! (
+    mkdir !bat_dir!!output_dir!
+)
 
 
 
@@ -51,8 +57,8 @@ if !numOfHeader! gtr 0 (
             )
 
             set /a headerCounter=!headerCounter! + 1
-        ) 
-        if !headerCounter! gtr !numOfHeader! ( 
+        )
+        if !headerCounter! gtr !numOfHeader! (
             goto :next
         )
     )
@@ -62,7 +68,7 @@ if !numOfHeader! gtr 0 (
 
 set /a loopCount=1
 
-for /f "tokens=* delims=: eol= usebackq" %%A in (%file%) do ( 
+for /f "tokens=* delims=: eol= usebackq" %%A in (%file%) do (
 
     Rem ƒwƒbƒ_[•ª‚Íˆ—‚ğs‚í‚È‚¢
     if !loopCount! gtr !numOfHeader! (
@@ -84,12 +90,12 @@ for /f "tokens=* delims=: eol= usebackq" %%A in (%file%) do (
         Rem ƒwƒbƒ_[‚ğ”z’u
         if !numOfHeader! gtr 0 (
             if !lineCounter! equ 1 (
-                echo !header!>> !splitFile!
+                echo !header!>> !bat_dir!!output_dir!!splitFile!
             )
         )
 
         Rem ƒf[ƒ^‚ğ‘}“ü
-        echo %%A>> !splitFile!
+        echo %%A>>!bat_dir!!output_dir!!splitFile!
 
         set /a lineCounter=!lineCounter! + 1
 
